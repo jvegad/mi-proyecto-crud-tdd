@@ -1,8 +1,7 @@
-package com.tdd;
+package com.mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CursoService {
 
@@ -58,9 +57,9 @@ public class CursoService {
             throw new IllegalStateException("No hay notas para calcular el promedio");
         }
         return notas.stream()
-                    .mapToDouble(Double::doubleValue)
-                    .average()
-                    .orElse(0.0);
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0);
     }
 
     // Validar que el índice esté dentro de los límites

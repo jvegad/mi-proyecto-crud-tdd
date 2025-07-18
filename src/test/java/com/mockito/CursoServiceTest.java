@@ -1,4 +1,4 @@
-package com.tdd;
+package com.mockito;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
