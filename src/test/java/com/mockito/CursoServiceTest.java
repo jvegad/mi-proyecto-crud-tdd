@@ -1,51 +1,104 @@
 package com.tdd;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Arrays;
 import java.util.List;
 
-public class CursoServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    @Test
-    void testCalcularPromedio() {
-        CursoService servicio = new CursoService();
-        List<Double> notas = Arrays.asList(4.0, 5.0, 6.0);
+class CursoServiceTest {
 
-        double resultado = servicio.calcularPromedio(notas);
+    private CursoService servicio;
 
-        assertEquals(5.0, resultado);
+    @BeforeEach
+    void setUp() {
+        servicio = new CursoService();
     }
 
     @Test
-    void testVerificarCupos() {
-        CursoService servicio = new CursoService(3); // capacidad 3 alumnos
-
-        servicio.setAlumnosInscritos(2);
-        assertTrue(servicio.verificarCupos());
-
-        servicio.setAlumnosInscritos(3);
-        assertFalse(servicio.verificarCupos());
+    void agregarNota_deberiaAgregarNotaALista() {
+        servicio.agregarNota(8.5);
+        assertEquals(8.5, servicio.obtenerNota(0));
     }
 
     @Test
-    void testCalcularPromedioListaVacia() {
-        CursoService servicio = new CursoService();
-
-        List<Double> notasVacias = List.of();
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            servicio.calcularPromedio(notasVacias);
-        });
+    void agregarNota_deberiaLanzarExcepcionSiNotaInvalida() {
+        assertThrows(IllegalArgumentException.class, () -> servicio.agregarNota(-1.0));
+        assertThrows(IllegalArgumentException.class, () -> servicio.agregarNota(11.0));
+        assertThrows(IllegalArgumentException.class, () -> servicio.agregarNota(null));
     }
 
     @Test
-    void testCalcularPromedioNulo() {
-        CursoService servicio = new CursoService();
+    void obtenerNota_deberiaRetornarNotaCorrecta() {
+        servicio.agregarNota(6.0);
+        servicio.agregarNota(9.0);
 
-        assertThrows(NullPointerException.class, () -> {
-            servicio.calcularPromedio(null);
-        });
+        assertEquals(6.0, servicio.obtenerNota(0));
+        assertEquals(9.0, servicio.obtenerNota(1));
+    }
+
+    @Test
+    void obtenerNota_deberiaLanzarExcepcionSiIndiceInvalido() {
+        assertThrows(IndexOutOfBoundsException.class, () -> servicio.obtenerNota(0));
+    }
+
+    @Test
+    void obtenerTodasLasNotas_deberiaRetornarListaCompleta() {
+        servicio.agregarNota(7.5);
+        servicio.agregarNota(8.0);
+
+        List<Double> notas = servicio.obtenerTodasLasNotas();
+
+        assertEquals(2, notas.size());
+        assertEquals(7.5, notas.get(0));
+        assertEquals(8.0, notas.get(1));
+    }
+
+    @Test
+    void actualizarNota_deberiaActualizarNotaCorrectamente() {
+        servicio.agregarNota(5.0);
+        servicio.actualizarNota(0, 9.0);
+
+        assertEquals(9.0, servicio.obtenerNota(0));
+    }
+
+    @Test
+    void actualizarNota_deberiaLanzarExcepcionSiIndiceOValorInvalido() {
+        servicio.agregarNota(5.0);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> servicio.actualizarNota(1, 8.0));
+        assertThrows(IllegalArgumentException.class, () -> servicio.actualizarNota(0, -1.0));
+        assertThrows(IllegalArgumentException.class, () -> servicio.actualizarNota(0, 11.0));
+        assertThrows(IllegalArgumentException.class, () -> servicio.actualizarNota(0, null));
+    }
+
+    @Test
+    void eliminarNota_deberiaRemoverNotaCorrectamente() {
+        servicio.agregarNota(7.0);
+        servicio.agregarNota(8.0);
+
+        servicio.eliminarNota(0);
+
+        assertEquals(1, servicio.obtenerTodasLasNotas().size());
+        assertEquals(8.0, servicio.obtenerNota(0));
+    }
+
+    @Test
+    void eliminarNota_deberiaLanzarExcepcionSiIndiceInvalido() {
+        assertThrows(IndexOutOfBoundsException.class, () -> servicio.eliminarNota(0));
+    }
+
+    @Test
+    void calcularPromedio_deberiaRetornarPromedioCorrecto() {
+        servicio.agregarNota(10.0);
+        servicio.agregarNota(8.0);
+        servicio.agregarNota(6.0);
+
+        assertEquals(8.0, servicio.calcularPromedio(), 0.01);
+    }
+
+    @Test
+    void calcularPromedio_deberiaLanzarExcepcionSiListaVacia() {
+        assertThrows(IllegalStateException.class, () -> servicio.calcularPromedio());
     }
 }
