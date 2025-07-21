@@ -1,6 +1,3 @@
-# Ignorar el directorio de salida de Maven
-/target/
-
 # Ignorar archivos generados por Maven (opcional pero recomendado)
 *.log
 *.class

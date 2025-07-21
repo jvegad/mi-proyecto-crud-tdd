@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CursoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mi-primer-test</a> &gt; <a href="index.source.html" class="el_package">com.mockito</a> &gt; <span class="el_source">CursoService.java</span></div><h1>CursoService.java</h1><pre class="source lang-java linenums">package com.mockito;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CursoService {
+
+    private final List&lt;Double&gt; notas;
+
+<span class="fc" id="L10">    public CursoService() {</span>
+<span class="fc" id="L11">        this.notas = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L12">    }</span>
+
+    // CREATE - Agregar nueva nota
+    public void agregarNota(Double nota) {
+        // TEST: agregarNota_deberiaAgregarNotaALista
+<span class="fc bfc" id="L17" title="All 6 branches covered.">        if (nota == null || nota &lt; 0 || nota &gt; 10) {</span>
+<span class="fc" id="L18">            throw new IllegalArgumentException(&quot;La nota debe estar entre 0 y 10&quot;);</span>
+        }
+<span class="fc" id="L20">        notas.add(nota);</span>
+<span class="fc" id="L21">        System.out.println(&quot;INSERT INTO notas (valor) VALUES (&quot; + nota + &quot;);&quot;);</span>
+<span class="fc" id="L22">    }</span>
+
+    // READ - Obtener una nota por índice
+    public Double obtenerNota(int index) {
+        // TEST: obtenerNota_deberiaRetornarNotaCorrecta
+<span class="fc" id="L27">        validarIndice(index);</span>
+<span class="fc" id="L28">        System.out.println(&quot;SELECT id, valor FROM notas WHERE id=&quot; + (index + 1) + &quot;;&quot;);</span>
+<span class="fc" id="L29">        return notas.get(index);</span>
+    }
+
+    // READ - Obtener todas las notas
+    public List&lt;Double&gt; obtenerTodasLasNotas() {
+        // TEST: obtenerTodasLasNotas_deberiaRetornarListaCompleta
+<span class="fc" id="L35">        System.out.println(&quot;SELECT id, valor FROM notas;&quot;);</span>
+<span class="fc" id="L36">        return new ArrayList&lt;&gt;(notas); // para evitar modificación externa</span>
+    }
+
+    // UPDATE - Modificar una nota existente
+    public void actualizarNota(int index, Double nuevaNota) {
+        // TEST: actualizarNota_deberiaActualizarNotaCorrectamente
+<span class="fc" id="L42">        validarIndice(index);</span>
+<span class="fc bfc" id="L43" title="All 6 branches covered.">        if (nuevaNota == null || nuevaNota &lt; 0 || nuevaNota &gt; 10) {</span>
+<span class="fc" id="L44">            throw new IllegalArgumentException(&quot;La nueva nota debe estar entre 0 y 10&quot;);</span>
+        }
+<span class="fc" id="L46">        notas.set(index, nuevaNota);</span>
+<span class="fc" id="L47">        System.out.println(&quot;UPDATE notas SET valor = &quot; + nuevaNota + &quot; WHERE id = &quot; + (index + 1) + &quot;;&quot;);</span>
+<span class="fc" id="L48">    }</span>
+
+    // DELETE - Eliminar una nota por índice
+    public void eliminarNota(int index) {
+        // TEST: eliminarNota_deberiaRemoverNotaCorrectamente
+<span class="fc" id="L53">        validarIndice(index);</span>
+<span class="fc" id="L54">        notas.remove(index);</span>
+<span class="fc" id="L55">        System.out.println(&quot;DELETE FROM notas WHERE id = &quot; + (index + 1) + &quot;;&quot;);</span>
+<span class="fc" id="L56">    }</span>
+
+    // Calcular promedio
+    public double calcularPromedio() {
+        // TEST: calcularPromedio_deberiaRetornarPromedioCorrecto
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (notas.isEmpty()) {</span>
+<span class="fc" id="L62">            throw new IllegalStateException(&quot;No hay notas para calcular el promedio&quot;);</span>
+        }
+<span class="fc" id="L64">        return notas.stream()</span>
+<span class="fc" id="L65">                .mapToDouble(Double::doubleValue)</span>
+<span class="fc" id="L66">                .average()</span>
+<span class="fc" id="L67">                .orElse(0.0);</span>
+    }
+
+    // Validar que el índice esté dentro de los límites
+    private void validarIndice(int index) {
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if (index &lt; 0 || index &gt;= notas.size()) {</span>
+<span class="fc" id="L73">            throw new IndexOutOfBoundsException(&quot;Índice fuera de rango&quot;);</span>
+        }
+<span class="fc" id="L75">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -18,18 +18,21 @@ public class CursoService {
             throw new IllegalArgumentException("La nota debe estar entre 0 y 10");
         }
         notas.add(nota);
+        System.out.println("INSERT INTO notas (valor) VALUES (" + nota + ");");
     }
 
     // READ - Obtener una nota por índice
     public Double obtenerNota(int index) {
         // TEST: obtenerNota_deberiaRetornarNotaCorrecta
         validarIndice(index);
+        System.out.println("SELECT id, valor FROM notas WHERE id=" + (index + 1) + ";");
         return notas.get(index);
     }
 
     // READ - Obtener todas las notas
     public List<Double> obtenerTodasLasNotas() {
         // TEST: obtenerTodasLasNotas_deberiaRetornarListaCompleta
+        System.out.println("SELECT id, valor FROM notas;");
         return new ArrayList<>(notas); // para evitar modificación externa
     }
 
@@ -41,6 +44,7 @@ public class CursoService {
             throw new IllegalArgumentException("La nueva nota debe estar entre 0 y 10");
         }
         notas.set(index, nuevaNota);
+        System.out.println("UPDATE notas SET valor = " + nuevaNota + " WHERE id = " + (index + 1) + ";");
     }
 
     // DELETE - Eliminar una nota por índice
@@ -48,6 +52,7 @@ public class CursoService {
         // TEST: eliminarNota_deberiaRemoverNotaCorrectamente
         validarIndice(index);
         notas.remove(index);
+        System.out.println("DELETE FROM notas WHERE id = " + (index + 1) + ";");
     }
 
     // Calcular promedio
