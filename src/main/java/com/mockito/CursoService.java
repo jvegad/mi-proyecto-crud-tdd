@@ -6,17 +6,20 @@ import java.util.List;
 public class CursoService {
 
     private final List<Double> notas;
+    private final ServicioValidacion validador;
 
-    public CursoService() {
+    public CursoService(ServicioValidacion validador) {
         this.notas = new ArrayList<>();
+        this.validador = validador;
     }
 
     // CREATE - Agregar nueva nota
     public void agregarNota(Double nota) {
         // TEST: agregarNota_deberiaAgregarNotaALista
-        if (nota == null || nota < 0 || nota > 10) {
+        /*if (nota == null || nota < 0 || nota > 10) {
             throw new IllegalArgumentException("La nota debe estar entre 0 y 10");
-        }
+        }*/
+        validador.validar(nota);
         notas.add(nota);
         System.out.println("INSERT INTO notas (valor) VALUES (" + nota + ");");
     }
@@ -40,9 +43,10 @@ public class CursoService {
     public void actualizarNota(int index, Double nuevaNota) {
         // TEST: actualizarNota_deberiaActualizarNotaCorrectamente
         validarIndice(index);
-        if (nuevaNota == null || nuevaNota < 0 || nuevaNota > 10) {
+        /*if (nuevaNota == null || nuevaNota < 0 || nuevaNota > 10) {
             throw new IllegalArgumentException("La nueva nota debe estar entre 0 y 10");
-        }
+        }*/
+        validador.validar(nuevaNota);
         notas.set(index, nuevaNota);
         System.out.println("UPDATE notas SET valor = " + nuevaNota + " WHERE id = " + (index + 1) + ";");
     }
