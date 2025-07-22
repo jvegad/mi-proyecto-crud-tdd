@@ -1,5 +1,6 @@
 package com.mockito;
 
+/*Se crea esta clase para incorporar Mockito */
 public class ServicioValidacionImpl implements ServicioValidacion {
 
     @Override
