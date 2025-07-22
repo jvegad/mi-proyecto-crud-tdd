@@ -1,4 +1,63 @@
-# Desarrollo Guiado por Pruebas (TDD) - CursoService
+# Reporte Módulos 2 y 3: CRUD con TDD y Testing Ágil
+
+## Integrantes
+*   Viki Borda
+*   Raúl Salas
+*   Josselyn Vega
+
+---
+
+## 1. Resumen del Proyecto
+
+Este proyecto consiste en el desarrollo de un sistema CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar las notas de un curso. La implementación se realizó siguiendo la metodología de **Test-Driven Development (TDD)**, asegurando que cada pieza de código funcional estuviera respaldada por una prueba automatizada antes de ser escrita.
+
+El objetivo principal fue integrar los principios del **Testing Ágil** con la práctica de la automatización en Java, simulando un flujo de trabajo profesional utilizado en equipos Scrum.
+
+*   **Tecnologías Utilizadas:**
+    *   **Lenguaje:** Java (Versión 24)
+    *   **Gestión de Dependencias:** Apache Maven
+    *   **Framework de Pruebas:** JUnit 5
+    *   **Simulación de Dependencias (Mocks):** Mockito
+    *   **Medición de Cobertura:** JaCoCo
+
+---
+
+## 2. Instrucciones de Configuración y Ejecución
+
+A continuación se detallan los pasos para clonar, compilar y probar el proyecto.
+
+### Prerrequisitos
+*   JDK 24 (o compatible) instalado.
+*   Apache Maven instalado y configurado en el PATH del sistema.
+*   Git instalado.
+
+### Pasos para la Ejecución
+
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/jvegad/mi-proyecto-crud-tdd
+    cd mi-proyecto-crud-tdd
+    ```
+
+2.  **Compilar y ejecutar las pruebas:**
+    El siguiente comando limpiará compilaciones anteriores, compilará el código y ejecutará todas las pruebas unitarias.
+    ```bash
+    mvn clean test
+    ```
+    Al finalizar, deberías ver un `BUILD SUCCESS` en la consola.
+
+3.  **Generar el reporte de cobertura:**
+    Para generar el reporte de cobertura de JaCoCo, se recomienda el siguiente comando que asegura la ejecución de las pruebas más recientes antes de generar el reporte:
+    ```bash
+    mvn clean verify
+    ```
+    El reporte HTML completo se encontrará en la siguiente ruta: `target/site/jacoco/index.html`
+
+---
+
+## 3. Documentación de los Ciclos TDD - Desarrollo Guiado por Pruebas (TDD) - CursoService
+
+El desarrollo del proyecto siguió 12 ciclos TDD. A continuación se detalla el proceso completo que dio forma a las funcionalidades CRUD, refinó el código y manejó los casos de error.
 
 ## Ciclo 1: Crear la funcionalidad de agregar una nota (el "camino feliz")
 
@@ -350,3 +409,43 @@ void agregarNota_deberiaLlamarAlValidador() {
 - `CursoService` cumple con SRP
 - Código más limpio, probado y desacoplado
 - Validación aislada, fácil de modificar o extender
+
+---
+
+## 4 Refactorización y Aplicación de Principios SOLID
+
+En desarrollo
+---
+
+## 5 Plan de Testing Ágil (Sprint de Desarrollo del CRUD)
+
+### Objetivo del Sprint
+
+"Al final del Sprint, el equipo habrá desarrollado y probado un sistema CRUD completamente funcional para la gestión de notas, con una base de código cubierta por pruebas unitarias automatizadas y lista para ser integrada".
+
+### Historias de Usuario
+
+En desarrollo
+
+### Criterios de Aceptación
+
+En desarrollo
+
+### Tipos de Pruebas a Realizar
+*   **Pruebas Unitarias:** Se ejecutan continuamente durante el desarrollo usando JUnit y Mockito. Verifican que cada método de `CursoService` funcione correctamente de forma aislada. Estas son la base de nuestra estrategia y se crean siguiendo TDD.
+*   **Pruebas de Integración:** Se puede realizar al final del desarrollo de una funcionalidad para verificar que `CursoService` interactúa correctamente con una base de datos real (en este caso, la simulación de SQL, copiando los SQL impresos en la consola, y probando en `https://sqliteonline.com/`).
+
+### Definición de "Terminado" (Definition of Done)
+
+Una Historia de Usuario se considera **"Terminada"** cuando:
+*   El código está escrito y cumple con los Criterios de Aceptación.
+*   Todas las pruebas unitarias asociadas pasan (`mvn test` exitoso).
+*   La cobertura de código de la nueva funcionalidad es igual o superior al 80%.
+*   El código ha sido refactorizado y no hay duplicación evidente.
+*   El código ha sido subido al repositorio de Git en la rama principal.
+
+---
+
+## 6. Reflexión Personal
+
+En desarrollo
