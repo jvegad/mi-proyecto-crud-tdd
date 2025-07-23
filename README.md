@@ -1,9 +1,9 @@
 # Reporte Módulos 2 y 3: CRUD con TDD y Testing Ágil
 
 ## Integrantes
-*   Viki Borda (McKingston01)
-*   Raúl Salas (DevRSH)
-*   Josselyn Vega (jvegad)
+*   **Viki Borda** (GitHub: McKingston01)
+*   **Raúl Salas** (GitHub: DevRSH)
+*   **Josselyn Vega** (GitHub: jvegad)
 
 ---
 
@@ -53,11 +53,22 @@ A continuación se detallan los pasos para clonar, compilar y probar el proyecto
     ```
     El reporte HTML completo se encontrará en la siguiente ruta: `target/site/jacoco/index.html`
 
+### Simulación de Base de Datos SQL
+Para cumplir con el requisito de interacción con SQL sin añadir la complejidad de una base de datos real, el sistema **simula las operaciones SQL imprimiendo las sentencias en la consola** cada vez que se ejecuta una operación (INSERT, SELECT, UPDATE, DELETE).
+
+**Instrucciones de uso:**
+1.  Ejecuta los tests con `mvn clean test`.
+2.  Copia las sentencias SQL impresas en la consola.
+3.  Pega las sentencias en un cliente de SQL online como **[SQLite Online](https://sqliteonline.com/)** para verificar su correcta sintaxis y lógica.
+
 ---
 
 ## 3. Documentación de los Ciclos TDD - Desarrollo Guiado por Pruebas (TDD) - CursoService
 
 El desarrollo del proyecto siguió 12 ciclos TDD. A continuación se detalla el proceso completo que dio forma a las funcionalidades CRUD, refinó el código y manejó los casos de error.
+
+<details>
+<summary><strong>Haz clic para ver los 12 Ciclos TDD</strong></summary>
 
 ## Ciclo 1: Crear la funcionalidad de agregar una nota (el "camino feliz")
 
@@ -391,7 +402,8 @@ public class ServicioValidacionImpl implements ServicioValidacion {
 
 ---
 
-### Ciclo 12: Prueba de comportamiento con `verify`
+### Ciclo 12: (🔴🟢🔵 - Prueba de Comportamiento con `verify`)
+-   Se escribió un nuevo test para verificar no un resultado, sino un **comportamiento**: que `CursoService` efectivamente llama al método `validar` de su dependencia. Se usó `verify(validadorMock).validar(nota)`. La prueba pasó inmediatamente, confirmando que la refactorización fue exitosa y la colaboración entre objetos funciona como se esperaba.
 
 ```java
 @Test
@@ -401,6 +413,8 @@ void agregarNota_deberiaLlamarAlValidador() {
     verify(validadorMock).validar(7.5);
 }
 ```
+
+</details>
 
 ---
 
@@ -489,8 +503,13 @@ void agregarNota_deberiaLlamarAlValidador() {
 
 ### Tipos de Pruebas a Realizar
 *   **Pruebas Unitarias:** Se ejecutan continuamente durante el desarrollo usando JUnit y Mockito. Verifican que cada método de `CursoService` funcione correctamente de forma aislada. Estas son la base de nuestra estrategia y se crean siguiendo TDD.
-*   **Pruebas de Integración:** Se puede realizar al final del desarrollo de una funcionalidad para verificar que `CursoService` interactúa correctamente con una base de datos real (en este caso, la simulación de SQL, copiando los SQL impresos en la consola, y probando en `https://sqliteonline.com/`).
+*   **Pruebas de Integración:** Se realizan al final de una funcionalidad para verificar que los componentes colaboran correctamente. En este proyecto, se simulan probando las sentencias SQL generadas en un cliente externo.
 *   **Pruebas de Aceptación:** Se pueden realizar al final del Sprint, ejecutando los Criterios de Aceptación de forma manual para validar que las Historias de Usuario se cumplieron por completo.
+
+### Roles Involucrados en el Sprint
+*   **Desarrolladores (Josselyn, Viki):** Responsables de escribir tanto las pruebas (RED) como el código de producción (GREEN), y de refactorizar (REFACTOR). También se encargan de la integración del código y de mantener el `BUILD` del proyecto siempre en verde.
+*   **Product Owner (Simulado):** Responsable de definir y priorizar las Historias de Usuario y sus Criterios de Aceptación.
+*   **QA / Tester (Rol asumido por los desarrolladores):** Responsables de las Pruebas de Aceptación al final del Sprint para dar el visto bueno a las funcionalidades.
 
 ### Definición de "Terminado" (Definition of Done)
 
@@ -506,6 +525,9 @@ Una Historia de Usuario se considera **"Terminada"** cuando:
 ## 5. Reflexión Personal
 
 ### Viki Borda
+En desarrollo
+
+### Raúl Salas
 En desarrollo
 
 ### Josselyn Vega
