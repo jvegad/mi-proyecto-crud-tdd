@@ -1,9 +1,9 @@
 # Reporte Módulos 2 y 3: CRUD con TDD y Testing Ágil
 
 ## Integrantes
-*   Viki Borda
-*   Raúl Salas
-*   Josselyn Vega
+*   Viki Borda (McKingston01)
+*   Raúl Salas (DevRSH)
+*   Josselyn Vega (jvegad)
 
 ---
 
@@ -412,12 +412,7 @@ void agregarNota_deberiaLlamarAlValidador() {
 
 ---
 
-## 4 Refactorización y Aplicación de Principios SOLID
-
-En desarrollo
----
-
-## 5 Plan de Testing Ágil (Sprint de Desarrollo del CRUD)
+## 4 Plan de Testing Ágil (Sprint de Desarrollo del CRUD)
 
 ### Objetivo del Sprint
 
@@ -425,15 +420,77 @@ En desarrollo
 
 ### Historias de Usuario
 
-En desarrollo
+#### HU-01: Listar todas las notas del curso
+*   **Como** profesor,
+*   **quiero** poder ver un listado completo de todas las notas que he agregado,
+*   **para** tener una visión general y rápida del progreso de la clase.
+
+#### HU-02: Consultar una nota específica por su posición
+*   **Como** profesor,
+*   **quiero** poder obtener una nota específica ingresando su posición en la lista,
+*   **para** verificar o recordar un valor puntual sin tener que revisar el listado completo.
+
+#### HU-03: Obtener el promedio de las notas
+*   **Como** profesor,
+*   **quiero** poder calcular el promedio de todas las notas ingresadas,
+*   **para** evaluar el rendimiento general del curso de forma cuantitativa.
+
+#### HU-04: Eliminar una nota específica
+*   **Como** profesor,
+*   **quiero** poder eliminar una nota específica de la lista,
+*   **para** remover registros que fueron ingresados por error o que ya no son válidos.
+
+#### HU-05: Manejar la eliminación de una nota inexistente
+*   **Como** profesor,
+*   **quiero** que el sistema me alerte si intento eliminar una nota que no existe,
+*   **para** evitar errores inesperados y entender por qué la operación no se pudo completar.
 
 ### Criterios de Aceptación
 
-En desarrollo
+#### AC 1 (HU-01): Listado con notas existentes
+*   **Dado** que he agregado varias notas al sistema (ej. 7.0, 4.0, 6.5).
+*   **Cuando** solicito el listado de todas las notas.
+*   **Entonces** el sistema debe devolver una lista que contenga exactamente esas tres notas.
+
+#### AC 2 (HU-01): Listado cuando no hay notas
+*   **Dado** que no he agregado ninguna nota al sistema.
+*   **Cuando** solicito el listado de todas las notas.
+*   **Entonces** el sistema debe devolver una lista vacía, sin generar ningún error.
+
+#### AC 3 (HU-02): Consulta de una nota existente
+*   **Dado** que existen las notas [6.0, 4.5, 7.0] en las posiciones 0, 1 y 2 respectivamente.
+*   **Cuando** solicito la nota en la posición 1.
+*   **Entonces** el sistema debe devolver el valor 4.5.
+
+#### AC 4 (HU-02): Consulta con una posición inválida
+*   **Dado** que existen 3 notas en el sistema (posiciones 0, 1, 2).
+*   **Cuando** intento solicitar la nota en una posición que no existe (ej. posición 3 o posición -1).
+*   **Entonces** el sistema debe informar de un error de "índice fuera de rango".
+
+#### AC 5 (HU-03): Calcular promedio con notas existentes
+*   **Dado** que he agregado las notas [7.0, 5.0, 6.0].
+*   **Cuando** solicito el cálculo del promedio.
+*   **Entonces** el sistema debe devolver el valor 6.0.
+
+#### AC 6 (HU-03): Intentar calcular promedio sin notas
+*   **Dado** que no hay ninguna nota registrada en el sistema.
+*   **Cuando** intento solicitar el cálculo del promedio.
+*   **Entonces** el sistema debe informar de un error indicando que la operación no se puede realizar porque no hay notas.
+
+#### AC 7 (HU-04): Eliminación exitosa de una nota
+*   **Dado** que tengo la lista de notas [5.0, 6.5, 4.0].
+*   **Cuando** elijo eliminar la nota en la posición 1 (el 6.5).
+*   **Entonces** la lista de notas resultante debe ser [5.0, 4.0].
+
+#### AC 8 (HU-05): Intento de eliminación con índice fuera de rango
+*   **Dado** que tengo una lista con 2 notas (en posiciones 0 y 1).
+*   **Cuando** intento eliminar la nota en la posición 5.
+*   **Entonces** el sistema debe notificarlo con un error de "índice fuera de rango" y la lista original no debe ser modificada.
 
 ### Tipos de Pruebas a Realizar
 *   **Pruebas Unitarias:** Se ejecutan continuamente durante el desarrollo usando JUnit y Mockito. Verifican que cada método de `CursoService` funcione correctamente de forma aislada. Estas son la base de nuestra estrategia y se crean siguiendo TDD.
 *   **Pruebas de Integración:** Se puede realizar al final del desarrollo de una funcionalidad para verificar que `CursoService` interactúa correctamente con una base de datos real (en este caso, la simulación de SQL, copiando los SQL impresos en la consola, y probando en `https://sqliteonline.com/`).
+*   **Pruebas de Aceptación:** Se pueden realizar al final del Sprint, ejecutando los Criterios de Aceptación de forma manual para validar que las Historias de Usuario se cumplieron por completo.
 
 ### Definición de "Terminado" (Definition of Done)
 
@@ -446,6 +503,20 @@ Una Historia de Usuario se considera **"Terminada"** cuando:
 
 ---
 
-## 6. Reflexión Personal
+## 5. Reflexión Personal
 
+### Viki Borda
 En desarrollo
+
+### Josselyn Vega
+*   **¿Qué aprendiste sobre Testing Ágil y TDD durante el desarrollo?**
+    Que TDD no es solo escribir pruebas, sino una metodología de diseño, que obliga a pensar primero en los requisitos y casos de uso antes de escribir líneas de código funcional. Esto resultó en un código más fácil de mantener.
+
+*   **¿Qué dificultades enfrentaste y cómo las resolviste?**
+    La compatibilidad entre las versiones recientes de Java (Java 24), Mockito y JaCoCo. Lo cual resolvimos actualizando las versiones de los plugins en el `pom.xml`.
+
+*   **¿Cómo te sentiste trabajando con ciclos TDD?**
+    El ciclo RED-GREEN-REFACTOR se siente lento, pero lo bueno es que cada cambio estaba respaldado por una red de pruebas, entonces uno puede refactorizar con confianza, sin miedo a romper funcionalidades existentes.
+
+*   **¿Qué mejorarías si volvieras a realizar este proyecto?**
+    Si volviera a hacerlo, planificaría mejor la refactorización y dedicaría más tiempo a configurar correctamente las versiones de las dependencias desde el inicio para evitar problemas de compatibilidad.
