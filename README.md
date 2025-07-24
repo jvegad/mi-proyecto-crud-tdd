@@ -434,6 +434,9 @@ void agregarNota_deberiaLlamarAlValidador() {
 
 ### Historias de Usuario
 
+<details>
+<summary><strong>Haz clic para ver las Historias de Usuario</strong></summary>
+
 #### HU-01: Listar todas las notas del curso
 *   **Como** profesor,
 *   **quiero** poder ver un listado completo de todas las notas que he agregado,
@@ -469,9 +472,14 @@ void agregarNota_deberiaLlamarAlValidador() {
 *   **quiero** poder modificar notas ya registradas,  
 *   **para** corregir errores o actualizar evaluaciones.  
 
+</details>
+
 ---
 
 ### Criterios de Aceptación
+
+<details>
+<summary><strong>Haz clic para ver los Criterios de Aceptación</strong></summary>
 
 #### AC 1 (HU-01): Listado con notas existentes
 *   **Dado** que he agregado varias notas al sistema (ej. 7.0, 4.0, 6.5).
@@ -553,6 +561,7 @@ void agregarNota_deberiaLlamarAlValidador() {
 *   **Cuando** realizo la operación,
 *   **Entonces** el sistema debe informar que la nota no existe y no permitir la edición.
 
+</details>
 
 ### Tipos de Pruebas a Realizar
 *   **Pruebas Unitarias:** Se ejecutan continuamente durante el desarrollo usando JUnit y Mockito. Verifican que cada método de `CursoService` funcione correctamente de forma aislada. Estas son la base de nuestra estrategia y se crean siguiendo TDD.
