@@ -459,6 +459,18 @@ void agregarNota_deberiaLlamarAlValidador() {
 *   **quiero** que el sistema me alerte si intento eliminar una nota que no existe,
 *   **para** evitar errores inesperados y entender por qué la operación no se pudo completar.
 
+#### HU-06: Agregar nueva nota de estudiante  
+*   **Como** profesor del curso,  
+*   **quiero** poder registrar nuevas notas de estudiantes en el sistema,  
+*   **para** mantener actualizado el registro académico de cada alumno.  
+
+#### HU-07: Actualizar nota existente  
+*   **Como** profesor del curso,  
+*   **quiero** poder modificar notas ya registradas,  
+*   **para** corregir errores o actualizar evaluaciones.  
+
+---
+
 ### Criterios de Aceptación
 
 #### AC 1 (HU-01): Listado con notas existentes
@@ -501,6 +513,47 @@ void agregarNota_deberiaLlamarAlValidador() {
 *   **Cuando** intento eliminar la nota en la posición 5.
 *   **Entonces** el sistema debe notificarlo con un error de "índice fuera de rango" y la lista original no debe ser modificada.
 
+#### AC 9 (HU-06): Validación de campos obligatorios
+*   **Dado** que quiero registrar una nueva nota,
+*   **Cuando** no lleno uno o más campos obligatorios (ID, nombre, asignatura o nota),
+*   **Entonces** el sistema debe rechazar el registro y mostrar un mensaje indicando qué campos faltan.
+
+#### AC 10 (HU-06): Validación del rango de nota
+*   **Dado** que intento registrar una nota fuera del rango permitido (ej. menor a 0 o mayor a 5),
+*   **Cuando** envío los datos,
+*   **Entonces** el sistema debe rechazar la entrada y notificar el error con un mensaje claro.
+
+#### AC 11 (HU-06): Registro exitoso
+*   **Dado** que todos los datos son válidos,
+*   **Cuando** registro una nueva nota,
+*   **Entonces** el sistema debe guardarla correctamente, mostrar una confirmación y actualizar la lista de inmediato.
+
+#### AC 12 (HU-06): Evitar notas duplicadas por asignatura
+*   **Dado** que un estudiante ya tiene una nota registrada para una asignatura,
+*   **Cuando** intento registrar otra nota para esa misma asignatura,
+*   **Entonces** el sistema debe notificarme y sugerir actualizar la nota existente.
+
+#### AC 13 (HU-07): Selección de nota para edición
+*   **Dado** que tengo varias notas registradas,
+*   **Cuando** quiero modificar una nota,
+*   **Entonces** el sistema debe permitirme filtrarla por ID, estudiante o asignatura.
+
+#### AC 14 (HU-07): Validación durante la edición
+*   **Dado** que edito una nota existente,
+*   **Cuando** ingreso un valor fuera del rango o dejo campos vacíos,
+*   **Entonces** el sistema debe validar y mostrar los errores correspondientes sin guardar los cambios.
+
+#### AC 15 (HU-07): Confirmación de cambios exitosos
+*   **Dado** que edito una nota con datos válidos,
+*   **Cuando** guardo los cambios,
+*   **Entonces** el sistema debe actualizar la base de datos, mostrar un mensaje de éxito y reflejar la nota actualizada en la lista.
+
+#### AC 16 (HU-07): Manejo de errores si la nota no existe
+*   **Dado** que intento editar una nota con un ID que no corresponde a ningún registro,
+*   **Cuando** realizo la operación,
+*   **Entonces** el sistema debe informar que la nota no existe y no permitir la edición.
+
+
 ### Tipos de Pruebas a Realizar
 *   **Pruebas Unitarias:** Se ejecutan continuamente durante el desarrollo usando JUnit y Mockito. Verifican que cada método de `CursoService` funcione correctamente de forma aislada. Estas son la base de nuestra estrategia y se crean siguiendo TDD.
 *   **Pruebas de Integración:** Se realizan al final de una funcionalidad para verificar que los componentes colaboran correctamente. En este proyecto, se simulan probando las sentencias SQL generadas en un cliente externo.
@@ -525,7 +578,9 @@ Una Historia de Usuario se considera **"Terminada"** cuando:
 ## 5. Reflexión Personal
 
 ### Viki Borda
-En desarrollo
+Reflexión Personal
+Este proyecto me permitió comprender la esencia del Testing Ágil y TDD: desarrollar con confianza, asegurando cada funcionalidad mediante pruebas automatizadas desde el inicio. Aprendí que escribir tests primero (ciclo RED-GREEN-REFACTOR) no solo valida la lógica, sino que también guía un diseño más limpio y desacoplado. Las herramientas como JUnit, Mockito y JaCoCo fueron fundamentales para medir la calidad y simular dependencias, aunque inicialmente tuve dificultades para configurar los mocks y lograr una cobertura alta. Por ejemplo, al simular la base de datos con logs de SQL, debimos iterar varias veces para asegurar que las pruebas reflejaran el comportamiento real.
+Trabajar con ciclos TDD fue al principio un desafío por la disciplina que exige (escribir pruebas antes que el código), pero luego noté sus ventajas: menos bugs y mayor mantenibilidad. Sin embargo, en etapas complejas (como validaciones cruzadas de notas), el proceso se volvió lento y requirió ajustes en los tests. Si repitiera el proyecto, mejoraría la planificación de los tests de integración (usando una BD real en lugar de logs) y dedicaría más tiempo a refactorizar, especialmente para reducir duplicación en las validaciones. Pese a los retos, esta experiencia reforzó que el TDD y el Testing Ágil son pilares para entregar software robusto y adaptable.
 
 ### Raúl Salas
 En desarrollo
